@@ -39,7 +39,7 @@ namespace GoodBooks.Services
 
         public Book GetBook(int bookId)
         {
-            return _db.Books.First(bookId);
+            return _db.Books.Find(bookId);
         }
     }
 }

@@ -1,7 +1,9 @@
+using GoodBooks.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,10 @@ namespace GoodBooks.Web
         {
 
             services.AddControllers();
+            services.AddDbContext<GoodBooksDbContext>(options => {
+                options.EnableDetailedErrors();
+                options.UseNpgsql(Configuration.GetConnectionString("goodbooks.dev"));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GoodBooks.Web", Version = "v1" });
